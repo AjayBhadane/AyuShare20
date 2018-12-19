@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.mainScreen).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                Intent intent = new Intent(MainActivity.this, PatientListActivity.class);
                 startActivity(intent);
                 return true;
             }
@@ -35,5 +35,4 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
     }
-
 }
