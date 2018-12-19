@@ -1,6 +1,7 @@
 package com.devices.ayu.ayushare20;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
+import java.io.File;
 import java.util.ArrayList;
 
 public class PatientListActivity extends AppCompatActivity {
@@ -31,6 +35,8 @@ public class PatientListActivity extends AppCompatActivity {
             this.state = state;
         }
     }
+
+    private final String standardFilePath;
 
     private ListView mPatientListView;
 
@@ -118,16 +124,49 @@ public class PatientListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_list_layout);
 
+        initPatientList();
+
+        if (! patientDataAlreadyExists()){
+            createPatientData();
+            setToNoPatientDataFound();
+        }
+
+        JSONObject data = getPatientData();
+
+        if( data != null ){
+            populatePatientList();
+        }
+
+    }
+
+    private boolean patientDataAlreadyExists(){
+        File folder = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "PatientRecordData");
+
+        standardFilePath
+
+        return false;
+    }
+
+    private void createPatientData(){
+
+    }
+
+    private void setToNoPatientDataFound(){
+
+    }
+
+    private JSONObject getPatientData(){
+        return null;
+    }
+
+    private void populatePatientList(){
+        mPatientListAdapter.notifyDataSetChanged();
+    }
+
+    private void initPatientList(){
         mPatientListAdapter = new PatientListAdapter();
         mPatientListView = findViewById(R.id.patient_list);
         mPatientListView.setAdapter(mPatientListAdapter);
-
-        mPatientListAdapter.addPatient(new PatientDetail(0, "Ajay Bhadane", HeartState.NORMAL));
-        mPatientListAdapter.addPatient(new PatientDetail(0, "Ajay Bhadane", HeartState.ABNORMAL));
-        mPatientListAdapter.addPatient(new PatientDetail(0, "Ajay Bhadane", HeartState.NORMAL));
-        mPatientListAdapter.addPatient(new PatientDetail(0, "Ajay Bhadane", HeartState.NOT_CHECKED));
-
-        mPatientListAdapter.notifyDataSetChanged();
     }
 
 }
