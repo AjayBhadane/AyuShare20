@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "23808922388",
+    "firebase_url": "https://ayushare20.firebaseio.com",
+    "project_id": "ayushare20",
+    "storage_bucket": "ayushare20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23808922388:android:bde512494c75c4fe",
+        "android_client_info": {
+          "package_name": "com.devices.ayu.ayushare20"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "23808922388-v99u0ir0ol8tnugno936r5c4efbd0840.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devices.ayu.ayushare20",
+            "certificate_hash": "c99760f891427ce210d668d94053d3341587aa55"
+          }
+        },
+        {
+          "client_id": "23808922388-qvsf4uh548nkiuq4dv6qercgs8vbrs8a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTTcMwSoxiv6zkZhVgZEuiq_FO98hQMuE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "23808922388-qvsf4uh548nkiuq4dv6qercgs8vbrs8a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
