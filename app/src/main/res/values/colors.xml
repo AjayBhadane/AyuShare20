@@ -3,4 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="ayuBlueBack">#53CDE2</color>
+    <color name="ayuBlueLogo">#005792</color>
+    <color name="ayuWidgetBack">#53CDE2</color>
+    <color name="ayuWidgetBorder">#D1F4FA</color>
 </resources>
