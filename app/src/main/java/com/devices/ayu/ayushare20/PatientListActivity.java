@@ -1,8 +1,5 @@
 package com.devices.ayu.ayushare20;
 
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
