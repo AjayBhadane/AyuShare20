@@ -2,36 +2,43 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/ayuWidgetBack"
+    android:foreground="@drawable/item_frame">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/patientName"
-        android:text="Ajay Bhadane"
         android:textSize="30sp"
-        android:layout_gravity="right|center"/>
+        android:layout_gravity="end|center"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/layout_back"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/layout_back"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
 
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/ic_heart_idle"
-            android:layout_gravity="left"/>
+            android:layout_gravity="start" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/patientId"
             android:textSize="40sp"
-            android:text="0000"
-            android:gravity="right" />
+            android:gravity="end"/>
 
     </LinearLayout>
-
 </LinearLayout>
