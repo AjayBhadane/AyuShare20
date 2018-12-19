@@ -20,6 +20,7 @@
         <activity android:name=".Recording_Screen_Activity"></activity>
         <activity android:name=".Patient_Entry_Activity"></activity>
         <activity android:name=".Device_Selector"></activity>
+        <activity android:name=".Test"></activity>
     </application>
 
 </manifest>
