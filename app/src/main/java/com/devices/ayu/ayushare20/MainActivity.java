@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        setContentView(R.layout.ayu_device_selector);
     }
 
     private void setFullscreen(){

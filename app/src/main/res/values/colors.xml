@@ -7,4 +7,6 @@
     <color name="ayuBlueLogo">#005792</color>
     <color name="ayuWidgetBack">#53CDE2</color>
     <color name="ayuWidgetBorder">#D1F4FA</color>
+    <color name="btncolor">#1f3c88</color>
+    <color name="bigbtncolor">#a6e3e9</color>
 </resources>
