@@ -17,5 +17,6 @@
     <string name="patient_age">Patient Age</string>
     <string name="gender">Gender :</string>
     <string name="create_patient">Create Patient</string>
-    <string name="update_patient">Update</string>
+    <string name="comment">Comment</string>
+    <string name="rec_screen"><b><u>Recording Screen</u></b></string>
 </resources>

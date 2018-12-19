@@ -9,4 +9,5 @@
     <color name="ayuWidgetBorder">#D1F4FA</color>
     <color name="btncolor">#1f3c88</color>
     <color name="bigbtncolor">#a6e3e9</color>
+    <color name="black">#000000</color>
 </resources>

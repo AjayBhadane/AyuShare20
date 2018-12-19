@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,17 +18,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setFullscreen();
-        setContentView(R.layout.spalsh);
+        setContentView(R.layout.login_main);
 
-        findViewById(R.id.mainScreen).setOnTouchListener(new View.OnTouchListener() {
+        Button login = (Button)findViewById(R.id.login_btn);
+
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Device_Selector.class);
                 startActivity(intent);
-                return true;
             }
         });
-        setContentView(R.layout.ayu_device_selector);
     }
 
     private void setFullscreen(){
