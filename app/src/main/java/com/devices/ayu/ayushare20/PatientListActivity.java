@@ -130,7 +130,7 @@ public class PatientListActivity extends AppCompatActivity {
         mPatientListAdapter.addPatient(new PatientDetail(0, "Ajay Bhadane", HeartState.NORMAL));
         mPatientListAdapter.addPatient(new PatientDetail(0, "Ajay Bhadane", HeartState.NOT_CHECKED));
 
-
+        mPatientListAdapter.notifyDataSetChanged();
     }
 
 }
