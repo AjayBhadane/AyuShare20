@@ -30,6 +30,7 @@
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:id="@+id/heartState"
             android:src="@drawable/ic_heart_unchecked"
             android:layout_gravity="start" />
 
