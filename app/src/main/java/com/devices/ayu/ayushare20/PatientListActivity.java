@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -66,7 +67,8 @@ public class PatientListActivity extends AppCompatActivity {
             ViewHolder viewHolder;
 
             if(convertView == null){
-
+                convertView = layoutInflater.inflate(R.layout.patient_list_item, null);
+                viewHolder
             }
 
             return null;
@@ -76,7 +78,7 @@ public class PatientListActivity extends AppCompatActivity {
     static class ViewHolder{
         TextView patientId;
         TextView patientName;
-        View heartState;
+        ImageView heartState;
     }
 
     @Override
