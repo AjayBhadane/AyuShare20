@@ -3,20 +3,28 @@ package com.devices.ayu.ayushare20;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.JsonReader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.json.JSONObject;
-
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class PatientListActivity extends AppCompatActivity {
+    private static final String TAG = PatientListActivity.class.getCanonicalName();
+
+    private static final int FULLSCREEN = WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
     private enum HeartState{
         NORMAL,
@@ -25,18 +33,34 @@ public class PatientListActivity extends AppCompatActivity {
     }
 
     private class PatientDetail{
-        final int patientID;
-        final String name;
-        final HeartState state;
+        int patientID;
+        String name;
+        HeartState state;
+
+        PatientDetail(){
+            this.patientID = -1;
+            this.name = "N/A";
+            this.state = HeartState.NOT_CHECKED;
+        }
 
         PatientDetail(final int patientID, final String name, final HeartState state){
             this.patientID = patientID;
             this.name = name;
             this.state = state;
         }
-    }
 
-    private final String standardFilePath;
+        public void setPatientID(final int patientID){
+            this.patientID = patientID;
+        }
+
+        public void setName(final String name){
+            this.name = name;
+        }
+
+        public void setState(final HeartState state){
+            this.state = state;
+        }
+    }
 
     private ListView mPatientListView;
 
@@ -92,7 +116,11 @@ public class PatientListActivity extends AppCompatActivity {
 
             PatientDetail detail = patientDetails.get(position);
             viewHolder.patientName.setText(detail.name);
-            viewHolder.patientId.setText(Integer.toString(detail.patientID));
+            if(detail.patientID == -1)
+                viewHolder.patientId.setText("N/A");
+            else
+                viewHolder.patientId.setText(Integer.toString(detail.patientID));
+
             switch(detail.state){
                 case NORMAL:
                     viewHolder.heartState.setImageResource(R.drawable.ic_heart_normal);
@@ -122,45 +150,121 @@ public class PatientListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        setFullscreen();
         setContentView(R.layout.patient_list_layout);
 
         initPatientList();
 
         if (! patientDataAlreadyExists()){
             createPatientData();
-            setToNoPatientDataFound();
         }
 
-        JSONObject data = getPatientData();
-
-        if( data != null ){
-            populatePatientList();
+        try{
+            populatePatientData();
+        }catch (IOException e){
+            e.printStackTrace();
         }
+    }
 
+    private void setFullscreen(){
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(FULLSCREEN, FULLSCREEN);
+
+        getSupportActionBar().hide();
     }
 
     private boolean patientDataAlreadyExists(){
         File folder = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "PatientRecordData");
 
-        standardFilePath
+        if(! folder.exists()){
+            return false;
+        }
 
-        return false;
+        File file = new File(folder.getAbsolutePath(), "data.json");
+
+        return file.exists();
     }
 
     private void createPatientData(){
+        String defaultContent = "{" +
+                                "   \"default_entry\": {"+
+                                "       \"name\" : \"N/A\","+
+                                "       \"id\" : -1,"+
+                                "       \"heartState\" : \"not_checked\""+
+                                "   }"+
+                                "}";
 
+        File folder = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "PatientRecordData");
+
+        if(! folder.exists()){
+            folder.mkdir();
+        }
+
+        File file = new File(folder.getAbsolutePath(), "data.json");
+
+        if(!file.exists()){
+            try{
+                file.createNewFile();
+                FileOutputStream outputStream = new FileOutputStream(file);
+                outputStream.write(defaultContent.getBytes());
+                outputStream.close();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
     }
 
-    private void setToNoPatientDataFound(){
-
+    private File getStandardFile(){
+        File folder  = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "PatientRecordData");
+        return new File(folder, "data.json");
     }
 
-    private JSONObject getPatientData(){
-        return null;
-    }
+    private void populatePatientData() throws IOException{
+        JsonReader reader;
 
-    private void populatePatientList(){
-        mPatientListAdapter.notifyDataSetChanged();
+        reader = new JsonReader(new FileReader(getStandardFile()));
+
+        reader.beginObject();
+
+        while(reader.hasNext()){
+            reader.nextName();
+            reader.beginObject();
+
+            PatientDetail detail = new PatientDetail();
+
+            for(int i = 0; i < 3 ;i++){
+                switch (reader.nextName()){
+                    case "name":
+                        detail.setName(reader.nextString());
+                        break;
+                    case "id":
+                        detail.setPatientID(reader.nextInt());
+                        break;
+                    case "heartState":{
+                        switch (reader.nextString()){
+                            case "normal":
+                                detail.setState(HeartState.NORMAL);
+                                break;
+                            case "abnormal":
+                                detail.setState(HeartState.ABNORMAL);
+                                break;
+                            case "not_checked":
+                                detail.setState(HeartState.NOT_CHECKED);
+                                break;
+                        }
+                    }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            reader.endObject();
+
+            mPatientListAdapter.addPatient(detail);
+            mPatientListAdapter.notifyDataSetChanged();
+
+        }
     }
 
     private void initPatientList(){
@@ -168,5 +272,4 @@ public class PatientListActivity extends AppCompatActivity {
         mPatientListView = findViewById(R.id.patient_list);
         mPatientListView.setAdapter(mPatientListAdapter);
     }
-
 }

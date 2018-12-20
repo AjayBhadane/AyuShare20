@@ -19,12 +19,14 @@ public class MainActivity extends AppCompatActivity {
         setFullscreen();
         setContentView(R.layout.spalsh);
 
+        PermissionsHelper.askPermissions(this);
+
         findViewById(R.id.mainScreen).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Intent intent = new Intent(MainActivity.this, PatientListActivity.class);
                 startActivity(intent);
-                return true;
+                return false;
             }
         });
     }
